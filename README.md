@@ -8,10 +8,7 @@ mathjax: true
 abbrlink: 9cabbd4
 date: 2023-12-15 15:24:56
 description:
-
 ---
-
-
 
 ## 1. 项目初始化
 
@@ -24,8 +21,6 @@ description:
   ```js
   npm i -g pnpm
   ```
-
-
 
 ### 1.2 初始化项目
 
@@ -40,12 +35,10 @@ description:
    ```js
    // 安装依赖
    pnpm i
-   
+
    // 安装完依赖运行程序
    pnpm run dev
    ```
-
-
 
 ## 2. 项目配置
 
@@ -77,43 +70,38 @@ description:
 
      ```js
      module.exports = {
-        //运行环境
-         "env": { 
-             "browser": true,//浏览器端
-             "es2021": true,//es2021
-         },
-         //规则继承
-         "extends": [ 
-            //全部规则默认是关闭的,这个配置项开启推荐规则,推荐规则参照文档
-            //比如:函数不能重名、对象不能出现重复key
-             "eslint:recommended",
-             //vue3语法规则
-             "plugin:vue/vue3-essential",
-             //ts语法规则
-             "plugin:@typescript-eslint/recommended"
-         ],
-         //要为特定类型的文件指定处理器
-         "overrides": [
-         ],
-         //指定解析器:解析器
-         //Esprima 默认解析器
-         //Babel-ESLint babel解析器
-         //@typescript-eslint/parser ts解析器
-         "parser": "@typescript-eslint/parser",
-         //指定解析器选项
-         "parserOptions": {
-             "ecmaVersion": "latest",//校验ECMA最新版本
-             "sourceType": "module"//设置为"script"（默认），或者"module"代码在ECMAScript模块中
-         },
-         //ESLint支持使用第三方插件。在使用插件之前，您必须使用npm安装它
-         //该eslint-plugin-前缀可以从插件名称被省略
-         "plugins": [
-             "vue",
-             "@typescript-eslint"
-         ],
-         //eslint规则
-         "rules": {
-         }
+       //运行环境
+       env: {
+         browser: true, //浏览器端
+         es2021: true, //es2021
+       },
+       //规则继承
+       extends: [
+         //全部规则默认是关闭的,这个配置项开启推荐规则,推荐规则参照文档
+         //比如:函数不能重名、对象不能出现重复key
+         'eslint:recommended',
+         //vue3语法规则
+         'plugin:vue/vue3-essential',
+         //ts语法规则
+         'plugin:@typescript-eslint/recommended',
+       ],
+       //要为特定类型的文件指定处理器
+       overrides: [],
+       //指定解析器:解析器
+       //Esprima 默认解析器
+       //Babel-ESLint babel解析器
+       //@typescript-eslint/parser ts解析器
+       parser: '@typescript-eslint/parser',
+       //指定解析器选项
+       parserOptions: {
+         ecmaVersion: 'latest', //校验ECMA最新版本
+         sourceType: 'module', //设置为"script"（默认），或者"module"代码在ECMAScript模块中
+       },
+       //ESLint支持使用第三方插件。在使用插件之前，您必须使用npm安装它
+       //该eslint-plugin-前缀可以从插件名称被省略
+       plugins: ['vue', '@typescript-eslint'],
+       //eslint规则
+       rules: {},
      }
      ```
 
@@ -144,7 +132,7 @@ description:
 
    ```js
    // @see https://eslint.bootcss.com/docs/rules/
-   
+
    module.exports = {
      env: {
        browser: true,
@@ -185,7 +173,7 @@ description:
        'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',
        'no-unexpected-multiline': 'error', // 禁止空余的多行
        'no-useless-escape': 'off', // 禁止不必要的转义字符
-   
+
        // typeScript (https://typescript-eslint.io/rules)
        '@typescript-eslint/no-unused-vars': 'error', // 禁止定义未使用的变量
        '@typescript-eslint/prefer-ts-expect-error': 'error', // 禁止使用 @ts-ignore
@@ -193,7 +181,7 @@ description:
        '@typescript-eslint/no-non-null-assertion': 'off',
        '@typescript-eslint/no-namespace': 'off', // 禁止使用自定义 TypeScript 模块和命名空间。
        '@typescript-eslint/semi': 'off',
-   
+
        // eslint-plugin-vue (https://eslint.vuejs.org/rules/)
        'vue/multi-word-component-names': 'off', // 要求组件名称始终为 “-” 链接的单词
        'vue/script-setup-uses-vars': 'error', // 防止<script setup>使用的变量<template>被标记为未使用
@@ -227,8 +215,6 @@ description:
        "fix": "eslint src --fix"
    }
    ```
-
-
 
 ### 2.2 prettier配置
 
@@ -280,8 +266,6 @@ description:
 
    通过`pnpm run lint`去检测语法，如果出现不规范格式,通过`pnpm run fix`修改
 
-   
-
 ### 2.3 stylelint配置
 
 1. 作用
@@ -304,7 +288,7 @@ description:
 
    ```js
    // @see https://stylelint.bootcss.com/
-   
+
    module.exports = {
      extends: [
        'stylelint-config-standard', // 配置stylelint拓展插件
@@ -396,9 +380,7 @@ description:
 
    当我们运行`pnpm run format`的时候，会把代码直接格式化
 
-
-
-### 2.4  husky配置
+### 2.4 husky配置
 
 1. 作用
 
@@ -428,8 +410,6 @@ description:
      ```
 
      当我们对代码进行commit操作的时候，就会执行命令，对代码进行格式化，然后再提交。
-
-     
 
 ### 2.5 commitlint配置
 
@@ -508,7 +488,7 @@ description:
 5. 配置husky
 
    ```js
-   npx husky add .husky/commit-msg 
+   npx husky add .husky/commit-msg
    ```
 
    在生成的commit-msg文件中添加下面的命令
@@ -521,8 +501,6 @@ description:
 
    - 当我们 commit 提交信息时，就不能再随意写了，必须是 git commit -m 'fix: xxx' 符合类型的才可以
    - **需要注意的是类型的后面需要用英文的 :，并且冒号后面是需要空一格的，这个是不能省略的**
-
-   
 
 ### 2.6 强制使用pnpm包管理器工具
 
@@ -538,7 +516,7 @@ description:
    if (!/pnpm/.test(process.env.npm_execpath || '')) {
      console.warn(
        `\u001b[33mThis repository must using pnpm as the package manager ` +
-       ` for scripts to work properly.\u001b[39m\n`,
+         ` for scripts to work properly.\u001b[39m\n`,
      )
      process.exit(1)
    }
@@ -554,13 +532,4 @@ description:
 
    当我们使用npm或者yarn来安装包的时候，就会报错了。原理就是在install的时候会触发preinstall（npm提供的生命周期钩子）这个文件里面的代码。
 
-
-
 ## 3. 项目集成
-
-
-
-
-
-
-
