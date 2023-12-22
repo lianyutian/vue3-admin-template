@@ -1,9 +1,8 @@
 <template>
   <div>Hello</div>
+  <SvgIcon name="home"></SvgIcon>
 </template>
 
-<script lang="ts">
-export default {}
-</script>
+<script setup lang="ts"></script>
 
 <style></style>
