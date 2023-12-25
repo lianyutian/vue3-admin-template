@@ -1,6 +1,7 @@
 <template>
-  <div><router-view></router-view></div>
+  <div>一级路由404</div>
 </template>
 
 <script setup lang="ts"></script>
-<style></style>
+
+<style lang="scss"></style>
