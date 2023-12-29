@@ -15,7 +15,6 @@ import gloablComponent from './components/index'
 import router from './router'
 // 导入pinia
 import pinia from './store'
-
 // 获取应用实例对象
 const app = createApp(App)
 // 安装element-plus插件
