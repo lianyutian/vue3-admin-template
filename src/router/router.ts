@@ -1,3 +1,5 @@
+import { User } from '@element-plus/icons-vue'
+
 // 对外暴露配置路由(常量路由)
 export const constantRoute = [
   {
@@ -54,6 +56,7 @@ export const constantRoute = [
       title: '权限管理',
       icon: 'Lock',
     },
+    redirect: '/acl/user',
     children: [
       {
         path: '/acl/user',

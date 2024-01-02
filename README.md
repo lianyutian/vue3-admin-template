@@ -8,10 +8,7 @@ mathjax: true
 abbrlink: 9cabbd4
 date: 2023-12-15 15:24:56
 description:
-
 ---
-
-
 
 ## 1. 项目初始化
 
@@ -24,8 +21,6 @@ description:
   ```js
   npm i -g pnpm
   ```
-
-
 
 ### 1.2 初始化项目
 
@@ -40,12 +35,10 @@ description:
    ```js
    // 安装依赖
    pnpm i
-   
+
    // 安装完依赖运行程序
    pnpm run dev
    ```
-
-
 
 ## 2. 项目配置
 
@@ -77,43 +70,38 @@ description:
 
      ```js
      module.exports = {
-        //运行环境
-         "env": { 
-             "browser": true,//浏览器端
-             "es2021": true,//es2021
-         },
-         //规则继承
-         "extends": [ 
-            //全部规则默认是关闭的,这个配置项开启推荐规则,推荐规则参照文档
-            //比如:函数不能重名、对象不能出现重复key
-             "eslint:recommended",
-             //vue3语法规则
-             "plugin:vue/vue3-essential",
-             //ts语法规则
-             "plugin:@typescript-eslint/recommended"
-         ],
-         //要为特定类型的文件指定处理器
-         "overrides": [
-         ],
-         //指定解析器:解析器
-         //Esprima 默认解析器
-         //Babel-ESLint babel解析器
-         //@typescript-eslint/parser ts解析器
-         "parser": "@typescript-eslint/parser",
-         //指定解析器选项
-         "parserOptions": {
-             "ecmaVersion": "latest",//校验ECMA最新版本
-             "sourceType": "module"//设置为"script"（默认），或者"module"代码在ECMAScript模块中
-         },
-         //ESLint支持使用第三方插件。在使用插件之前，您必须使用npm安装它
-         //该eslint-plugin-前缀可以从插件名称被省略
-         "plugins": [
-             "vue",
-             "@typescript-eslint"
-         ],
-         //eslint规则
-         "rules": {
-         }
+       //运行环境
+       env: {
+         browser: true, //浏览器端
+         es2021: true, //es2021
+       },
+       //规则继承
+       extends: [
+         //全部规则默认是关闭的,这个配置项开启推荐规则,推荐规则参照文档
+         //比如:函数不能重名、对象不能出现重复key
+         'eslint:recommended',
+         //vue3语法规则
+         'plugin:vue/vue3-essential',
+         //ts语法规则
+         'plugin:@typescript-eslint/recommended',
+       ],
+       //要为特定类型的文件指定处理器
+       overrides: [],
+       //指定解析器:解析器
+       //Esprima 默认解析器
+       //Babel-ESLint babel解析器
+       //@typescript-eslint/parser ts解析器
+       parser: '@typescript-eslint/parser',
+       //指定解析器选项
+       parserOptions: {
+         ecmaVersion: 'latest', //校验ECMA最新版本
+         sourceType: 'module', //设置为"script"（默认），或者"module"代码在ECMAScript模块中
+       },
+       //ESLint支持使用第三方插件。在使用插件之前，您必须使用npm安装它
+       //该eslint-plugin-前缀可以从插件名称被省略
+       plugins: ['vue', '@typescript-eslint'],
+       //eslint规则
+       rules: {},
      }
      ```
 
@@ -144,7 +132,7 @@ description:
 
    ```js
    // @see https://eslint.bootcss.com/docs/rules/
-   
+
    module.exports = {
      env: {
        browser: true,
@@ -185,7 +173,7 @@ description:
        'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',
        'no-unexpected-multiline': 'error', // 禁止空余的多行
        'no-useless-escape': 'off', // 禁止不必要的转义字符
-   
+
        // typeScript (https://typescript-eslint.io/rules)
        '@typescript-eslint/no-unused-vars': 'error', // 禁止定义未使用的变量
        '@typescript-eslint/prefer-ts-expect-error': 'error', // 禁止使用 @ts-ignore
@@ -193,7 +181,7 @@ description:
        '@typescript-eslint/no-non-null-assertion': 'off',
        '@typescript-eslint/no-namespace': 'off', // 禁止使用自定义 TypeScript 模块和命名空间。
        '@typescript-eslint/semi': 'off',
-   
+
        // eslint-plugin-vue (https://eslint.vuejs.org/rules/)
        'vue/multi-word-component-names': 'off', // 要求组件名称始终为 “-” 链接的单词
        'vue/script-setup-uses-vars': 'error', // 防止<script setup>使用的变量<template>被标记为未使用
@@ -227,8 +215,6 @@ description:
        "fix": "eslint src --fix"
    }
    ```
-
-
 
 ### 2.2 prettier配置
 
@@ -280,8 +266,6 @@ description:
 
    通过`pnpm run lint`去检测语法，如果出现不规范格式,通过`pnpm run fix`修改
 
-   
-
 ### 2.3 stylelint配置
 
 1. 作用
@@ -304,7 +288,7 @@ description:
 
    ```js
    // @see https://stylelint.bootcss.com/
-   
+
    module.exports = {
      extends: [
        'stylelint-config-standard', // 配置stylelint拓展插件
@@ -396,9 +380,7 @@ description:
 
    当我们运行`pnpm run format`的时候，会把代码直接格式化
 
-
-
-### 2.4  husky配置
+### 2.4 husky配置
 
 1. 作用
 
@@ -428,8 +410,6 @@ description:
      ```
 
      当我们对代码进行commit操作的时候，就会执行命令，对代码进行格式化，然后再提交。
-
-     
 
 ### 2.5 commitlint配置
 
@@ -508,7 +488,7 @@ description:
 5. 配置husky
 
    ```js
-   npx husky add .husky/commit-msg 
+   npx husky add .husky/commit-msg
    ```
 
    在生成的commit-msg文件中添加下面的命令
@@ -521,8 +501,6 @@ description:
 
    - 当我们 commit 提交信息时，就不能再随意写了，必须是 git commit -m 'fix: xxx' 符合类型的才可以
    - **需要注意的是类型的后面需要用英文的 :，并且冒号后面是需要空一格的，这个是不能省略的**
-
-   
 
 ### 2.6 强制使用pnpm包管理器工具
 
@@ -538,7 +516,7 @@ description:
    if (!/pnpm/.test(process.env.npm_execpath || '')) {
      console.warn(
        `\u001b[33mThis repository must using pnpm as the package manager ` +
-       ` for scripts to work properly.\u001b[39m\n`,
+         ` for scripts to work properly.\u001b[39m\n`,
      )
      process.exit(1)
    }
@@ -553,8 +531,6 @@ description:
    ```
 
    当我们使用npm或者yarn来安装包的时候，就会报错了。原理就是在install的时候会触发preinstall（npm提供的生命周期钩子）这个文件里面的代码。
-
-
 
 ## 3. 项目集成
 
@@ -577,14 +553,14 @@ description:
    ```js
    import { createApp } from 'vue'
    import App from './App.vue'
-   
+
    import ElementPlus from 'element-plus'
    import 'element-plus/dist/index.css'
    //@ts-expect-error忽略当前文件ts类型的检测否则有红色提示(打包会失败)
    import zhCn from 'element-plus/dist/locale/zh-cn.mjs'
-   
+
    const app = createApp(App)
-   
+
    app
      .use(ElementPlus, {
        locale: zhCn,
@@ -606,8 +582,6 @@ description:
    }
    ```
 
-   
-
 ### 3.2 src别名的配置
 
 1. 配置vite.config.ts
@@ -616,16 +590,16 @@ description:
 
    ```js
    // vite.config.ts
-   import {defineConfig} from 'vite'
+   import { defineConfig } from 'vite'
    import vue from '@vitejs/plugin-vue'
    import path from 'path'
    export default defineConfig({
-       plugins: [vue()],
-       resolve: {
-           alias: {
-               "@": path.resolve("./src") // 相对路径别名配置，使用 @ 代替 src
-           }
-       }
+     plugins: [vue()],
+     resolve: {
+       alias: {
+         '@': path.resolve('./src'), // 相对路径别名配置，使用 @ 代替 src
+       },
+     },
    })
    ```
 
@@ -637,13 +611,11 @@ description:
      "compilerOptions": {
        "baseUrl": "./", // 解析非相对模块的基地址，默认是当前目录
        "paths": { //路径映射，相对于baseUrl
-         "@/*": ["src/*"] 
+         "@/*": ["src/*"]
        }
      }
    }
    ```
-
-   
 
 ### 3.3 环境变量配置
 
@@ -716,16 +688,14 @@ description:
      <template>
        <div>Hello</div>
      </template>
-     
+
      <script lang="ts">
-     console.log(import.meta.env)
-     export default {}
+       console.log(import.meta.env)
+       export default {}
      </script>
-     
+
      <style></style>
      ```
-
-     
 
 ### 3.4 SVG图标配置
 
@@ -771,7 +741,6 @@ description:
    import 'virtual:svg-icons-register'
    ```
 
-
 #### 3.4.2 封装为全局组件
 
 1. 作用
@@ -790,32 +759,32 @@ description:
        </svg>
      </div>
    </template>
-   
+
    <script setup lang="ts">
-   defineProps({
-     //xlink:href属性值的前缀
-     prefix: {
-       type: String,
-       default: '#icon-',
-     },
-     //svg矢量图的名字
-     name: String,
-     //svg图标的颜色
-     color: {
-       type: String,
-       default: '',
-     },
-     //svg宽度
-     width: {
-       type: String,
-       default: '16px',
-     },
-     //svg高度
-     height: {
-       type: String,
-       default: '16px',
-     },
-   })
+     defineProps({
+       //xlink:href属性值的前缀
+       prefix: {
+         type: String,
+         default: '#icon-',
+       },
+       //svg矢量图的名字
+       name: String,
+       //svg图标的颜色
+       color: {
+         type: String,
+         default: '',
+       },
+       //svg宽度
+       width: {
+         type: String,
+         default: '16px',
+       },
+       //svg高度
+       height: {
+         type: String,
+         default: '16px',
+       },
+     })
    </script>
    <style scoped></style>
    ```
@@ -841,11 +810,9 @@ description:
 4. 入口文件使用自定义插件
 
    ```js
-   import gloablComponent from './components/index';
-   app.use(gloablComponent);
+   import gloablComponent from './components/index'
+   app.use(gloablComponent)
    ```
-
-   
 
 ### 3.5 集成sass
 
@@ -867,11 +834,11 @@ description:
    *,
    *:after,
    *:before {
-       box-sizing: border-box;
-   
-       outline: none;
+     box-sizing: border-box;
+
+     outline: none;
    }
-   
+
    html,
    body,
    div,
@@ -953,17 +920,17 @@ description:
    mark,
    audio,
    video {
-       font: inherit;
-       font-size: 100%;
-   
-       margin: 0;
-       padding: 0;
-   
-       vertical-align: baseline;
-   
-       border: 0;
+     font: inherit;
+     font-size: 100%;
+
+     margin: 0;
+     padding: 0;
+
+     vertical-align: baseline;
+
+     border: 0;
    }
-   
+
    article,
    aside,
    details,
@@ -975,80 +942,80 @@ description:
    menu,
    nav,
    section {
-       display: block;
+     display: block;
    }
-   
+
    body {
-       line-height: 1;
+     line-height: 1;
    }
-   
+
    ol,
    ul {
-       list-style: none;
+     list-style: none;
    }
-   
+
    blockquote,
    q {
-       quotes: none;
-   
-       &:before,
-       &:after {
-           content: '';
-           content: none;
-       }
+     quotes: none;
+
+     &:before,
+     &:after {
+       content: '';
+       content: none;
+     }
    }
-   
+
    sub,
    sup {
-       font-size: 75%;
-       line-height: 0;
-   
-       position: relative;
-   
-       vertical-align: baseline;
+     font-size: 75%;
+     line-height: 0;
+
+     position: relative;
+
+     vertical-align: baseline;
    }
-   
+
    sup {
-       top: -.5em;
+     top: -0.5em;
    }
-   
+
    sub {
-       bottom: -.25em;
+     bottom: -0.25em;
    }
-   
+
    table {
-       border-spacing: 0;
-       border-collapse: collapse;
+     border-spacing: 0;
+     border-collapse: collapse;
    }
-   
+
    input,
    textarea,
    button {
-       font-family: inhert;
-       font-size: inherit;
-   
-       color: inherit;
+     font-family: inhert;
+     font-size: inherit;
+
+     color: inherit;
    }
-   
+
    select {
-       text-indent: .01px;
-       text-overflow: '';
-   
-       border: 0;
-       border-radius: 0;
-   
-       -webkit-appearance: none;
-       -moz-appearance: none;
+     text-indent: 0.01px;
+     text-overflow: '';
+
+     border: 0;
+     border-radius: 0;
+
+     -webkit-appearance: none;
+     -moz-appearance: none;
    }
-   
+
    select::-ms-expand {
-       display: none;
+     display: none;
    }
-   
+
    code,
    pre {
-       font-family: monospace, monospace;
-       font-size: 1em;
+     font-family: monospace, monospace;
+     font-size: 1em;
    }
    ```
 
@@ -1057,16 +1024,16 @@ description:
    ```css
    //引入清除默认样式
    @import './reset.scss';
-   
+
    //滚动条外观设置
    ::-webkit-scrollbar {
        width: 10px;
    }
-   
+
    ::-webkit-scrollbar-track {
        background: $base-menu-background;
    }
-   
+
    ::-webkit-scrollbar-thumb {
        width: 10px;
        background-color: yellowgreen;
@@ -1103,8 +1070,6 @@ description:
      **`@import "./src/styles/variable.less";`后面的`;`不要忘记，不然会报错**!
 
      配置完毕你会发现scss提供这些全局变量可以在组件样式中使用了！！！
-
-     
 
 ### 3.6 mock数据
 
@@ -1236,8 +1201,6 @@ description:
 
    ![image-20231222221423697](C:\Users\14361\AppData\Roaming\Typora\typora-user-images\image-20231222221423697.png)
 
-
-
 ### 3.7 axios二次封装
 
 1. 作用
@@ -1297,9 +1260,6 @@ description:
    export default request
    ```
 
-
-
-
 ## 4. 路由配置
 
 1. 安装依赖
@@ -1316,9 +1276,9 @@ description:
      <template>
        <div>一级路由login</div>
      </template>
-     
+
      <script setup lang="ts"></script>
-     
+
      <style lang="scss"></style>
      ```
 
@@ -1390,16 +1350,14 @@ description:
 
      ```html
      <!-- App.vue -->
-     
+
      <template>
        <div><router-view></router-view></div>
      </template>
-     
+
      <script setup lang="ts"></script>
      <style></style>
      ```
-
-     
 
 ## 5. 登录模块
 
@@ -1409,7 +1367,7 @@ description:
 
    ```html
    <!-- src/views/login/index.vue -->
-   
+
    <template>
      <div class="login_container">
        <el-row>
@@ -1448,48 +1406,46 @@ description:
        </el-row>
      </div>
    </template>
-   
+
    <script setup lang="ts">
-   import { User, Lock } from '@element-plus/icons-vue'
-   import { reactive } from 'vue'
-   
-   // 登录效果
-   let loadType = ref(false)
-   //收集账号与密码数据
-   let loginForm = reactive({ username: 'admin', password: '111111' })
+     import { User, Lock } from '@element-plus/icons-vue'
+     import { reactive } from 'vue'
+
+     // 登录效果
+     let loadType = ref(false)
+     //收集账号与密码数据
+     let loginForm = reactive({ username: 'admin', password: '111111' })
    </script>
-   
+
    <style lang="scss" scoped>
-   .login_container {
-     width: 100%;
-     height: 100vh;
-     background: url('@/assets/images/background.jpg') no-repeat;
-     background-size: cover;
-     .login_form {
-       position: relative;
-       width: 80%;
-       top: 30vh;
-       background: url('@/assets/images/login_form.png') no-repeat;
+     .login_container {
+       width: 100%;
+       height: 100vh;
+       background: url('@/assets/images/background.jpg') no-repeat;
        background-size: cover;
-       padding: 40px;
-       h1 {
-         color: white;
-         font-size: 40px;
-       }
-       h2 {
-         color: white;
-         font-size: 20px;
-         margin: 20px 0px;
-       }
-       .login_btn {
-         width: 100%;
+       .login_form {
+         position: relative;
+         width: 80%;
+         top: 30vh;
+         background: url('@/assets/images/login_form.png') no-repeat;
+         background-size: cover;
+         padding: 40px;
+         h1 {
+           color: white;
+           font-size: 40px;
+         }
+         h2 {
+           color: white;
+           font-size: 20px;
+           margin: 20px 0px;
+         }
+         .login_btn {
+           width: 100%;
+         }
        }
      }
-   }
    </style>
    ```
-
-
 
 ### 5.2 编写请求登录API
 
@@ -1516,7 +1472,7 @@ description:
          return { code: 200, data: { token } }
        },
    },
-       
+
    // 登录接口返回数据类型
    {
          userId: 1,
@@ -1536,7 +1492,7 @@ description:
 
    ```js
    // src/api/user/type.ts
-   
+
    // 登录接口需要携带参数ts类型
    export interface loginForm {
      username: string
@@ -1558,23 +1514,21 @@ description:
 
    ```js
    // src/api/user/index.ts
-   
+
    // 同一管理用户相关的接口
    import request from '@/utils/request'
    import { loginForm, loginResponseData } from './type'
-   
+
    // 统一管理API
    enum API {
      LOGIN_URL = '/user/login',
    }
-   
+
    // 暴露请求函数
    // 登录接口
    export const reqLogin = (data: loginForm) =>
      request.post<any, loginResponseData>(API.LOGIN_URL, data)
    ```
-
-
 
 ### 5.3 用户数据存储pinia
 
@@ -1588,7 +1542,7 @@ description:
 
    ```js
    // src/store/index.ts
-   
+
    //仓库大仓库
    import { createPinia } from 'pinia'
    //创建大仓库
@@ -1601,10 +1555,10 @@ description:
 
    ```js
    // main.ts
-   
+
    // 导入pinia
    import pinia from './store'
-   
+
    app.use(pinia)
    ```
 
@@ -1612,7 +1566,7 @@ description:
 
    ```js
    // src/store/modules/type/type.ts
-   
+
    export interface UserState {
      token: string | null
    }
@@ -1622,31 +1576,29 @@ description:
 
    ```js
    // src/utils/token.ts
-   
+
    // 封装本地存储和读取数据的方法
    export const SET_TOKEN = (token: string) => {
      localStorage.setItem('TOKEN', token)
    }
-   
+
    export const GET_TOKEN = (): string | null => {
      return localStorage.getItem('TOKEN')
    }
    ```
 
-   
-
 6. 创建用户相关仓库
 
    ```js
    // src/store/modules/user.ts
-   
+
    // 创建用户相关的小仓库
    import { defineStore } from 'pinia'
    import { loginForm, loginResponseData } from '@/api/user/type'
    import { reqLogin } from '@/api/user'
    import { GET_TOKEN, SET_TOKEN } from '@/utils/token'
    import { UserState } from './type/type'
-   
+
    // 创建用户小仓库
    const useUserStore = defineStore('User', {
      // 用户仓库存储数据地方
@@ -1676,27 +1628,25 @@ description:
    export default useUserStore
    ```
 
-   
-
 ### 5.4 登录按钮点击事件
 
 1. 登录
 
    ```js
    <!-- src/views/login/index.vue -->
-   
+
    <script setup lang="ts">
    import { User, Lock } from '@element-plus/icons-vue'
    import { reactive, ref } from 'vue'
    import useUserStore from '@/store/modules/user'
    import { useRouter } from 'vue-router'
    import { ElNotification } from 'element-plus'
-   
+
    // 登录效果
    let loadType = ref(false)
    //收集账号与密码数据
    let loginForm = reactive({ username: 'admin', password: '111111' })
-   
+
    const router = useRouter()
    let userStore = useUserStore()
    // 登录
@@ -1720,8 +1670,6 @@ description:
    }
    </script>
    ```
-
-   
 
 ### 5.5 登录提示
 
@@ -1747,7 +1695,7 @@ description:
      } else {
        message = '晚上'
      }
-   
+
      return message
    }
    ```
@@ -1777,8 +1725,6 @@ description:
      }
    }
    ```
-
-
 
 ### 5.6 登录表单校验
 
@@ -1834,12 +1780,10 @@ description:
    const login = async () => {
      //保证全部表单项校验通过
      await loginFormRef.value.validate()
-   
+
      ...
    }
    ```
-
-
 
 ### 5.7 自定义校验
 
@@ -1873,16 +1817,10 @@ description:
    ```js
    //定义表单校验需要的配置对象
    const rules = {
-     username: [
-       { validator: validatorUserName, trigger: 'change' },
-     ],
-     password: [
-       { validator: validatorPassword, trigger: 'change' },
-     ],
+     username: [{ validator: validatorUserName, trigger: 'change' }],
+     password: [{ validator: validatorPassword, trigger: 'change' }],
    }
    ```
-
-   
 
 ## 6. Layout模块
 
@@ -1892,7 +1830,7 @@ description:
 
    ```html
    <!-- src/layout/index.vue -->
-   
+
    <template>
      <div class="layout_container">
        <!-- 左侧菜单 -->
@@ -1905,37 +1843,37 @@ description:
        </div>
      </div>
    </template>
-   
+
    <script setup lang="ts"></script>
-   
+
    <style lang="scss" scoped>
-   .layout_container {
-     width: 100%;
-     height: 100vh;
-     .layout_slider {
-       width: $base-menu-width;
+     .layout_container {
+       width: 100%;
        height: 100vh;
-       background: $base-menu-background;
+       .layout_slider {
+         width: $base-menu-width;
+         height: 100vh;
+         background: $base-menu-background;
+       }
+       .layout_tabbar {
+         position: fixed;
+         width: calc(100% - $base-menu-width);
+         height: $base-tabbar-height;
+         background: cyan;
+         top: 0;
+         left: $base-menu-width;
+       }
+       .layout_main {
+         position: absolute;
+         width: calc(100% - $base-menu-width);
+         height: calc(100vh - $base-tabbar-height);
+         background-color: yellowgreen;
+         left: $base-menu-width;
+         top: $base-tabbar-height;
+         padding: 20px;
+         overflow: auto;
+       }
      }
-     .layout_tabbar {
-       position: fixed;
-       width: calc(100% - $base-menu-width);
-       height: $base-tabbar-height;
-       background: cyan;
-       top: 0;
-       left: $base-menu-width;
-     }
-     .layout_main {
-       position: absolute;
-       width: calc(100% - $base-menu-width);
-       height: calc(100vh - $base-tabbar-height);
-       background-color: yellowgreen;
-       left: $base-menu-width;
-       top: $base-tabbar-height;
-       padding: 20px;
-       overflow: auto;
-     }
-   }
    </style>
    ```
 
@@ -1943,7 +1881,7 @@ description:
 
    ```css
    // scr/styles/variable.scss
-   
+
    // 项目提供scss全局变量
    //左侧的菜单的宽度
    $base-menu-width:260px;
@@ -1958,15 +1896,15 @@ description:
 
    ```css
    // scr/styles/index.scss
-   
+
    //引入清除默认样式
    @import './reset.scss';
-   
+
    //滚动条外观设置
    ::-webkit-scrollbar {
        width: 10px;
    }
-   
+
    ::-webkit-scrollbar-thumb {
        width: 10px;
        background-color: yellowgreen;
@@ -1974,41 +1912,39 @@ description:
    }
    ```
 
-   
-
 ### 6.2 封装LOGO
 
 1. 创建logo组件
 
    ```html
    <!-- src/layout/logo/index.vue -->
-   
+
    <template>
      <div class="logo">
        <img src="../../../../public/logo.png" alt="" />
        <p>xxx后台管理</p>
      </div>
    </template>
-   
+
    <script setup lang="ts"></script>
-   
+
    <style lang="scss" scoped>
-   .logo {
-     width: 100%;
-     height: $base-menu-logo-height;
-     color: white;
-     display: flex;
-     align-items: center;
-     padding: 20px;
-     img {
-       width: 40px;
-       height: 40px;
+     .logo {
+       width: 100%;
+       height: $base-menu-logo-height;
+       color: white;
+       display: flex;
+       align-items: center;
+       padding: 20px;
+       img {
+         width: 40px;
+         height: 40px;
+       }
+       p {
+         font-size: $base-logo-title-fontSize;
+         margin-left: 10px;
+       }
      }
-     p {
-       font-size: $base-logo-title-fontSize;
-       margin-left: 10px;
-     }
-   }
    </style>
    ```
 
@@ -2016,7 +1952,7 @@ description:
 
    ```css
    // scr/styles/variable.scss
-   
+
    //左侧菜单logo高度设置
    $base-menu-logo-height:50px;
    //左侧菜单logo右侧文字大小
@@ -2041,9 +1977,9 @@ description:
        </div>
      </div>
    </template>
-   
+
    <script setup lang="ts">
-   import Logo from '@/views/layout/logo/index.vue'
+     import Logo from '@/views/layout/logo/index.vue'
    </script>
    ```
 
@@ -2053,7 +1989,7 @@ description:
 
    ```js
    // src/setting.ts
-   
+
    //用于项目logo|标题配置
    export default {
      title: '硅谷甄选运营平台', //项目的标题
@@ -2071,13 +2007,11 @@ description:
        <p>{{ setting.title }}</p>
      </div>
    </template>
-   
+
    <script setup lang="ts">
-   import setting from '@/setting'
+     import setting from '@/setting'
    </script>
    ```
-
-   
 
 ### 6.3 左侧静态菜单组件
 
@@ -2107,46 +2041,46 @@ description:
        </div>
      </div>
    </template>
-   
+
    <style lang="scss" scoped>
-   .layout_container {
-     width: 100%;
-     height: 100vh;
-     // 设置字体颜色
-     color: white;
-     .layout_slider {
-       width: $base-menu-width;
+     .layout_container {
+       width: 100%;
        height: 100vh;
-       background: $base-menu-background;
-       // 设置滚动条样式
-       .scrollbar {
-         width: 100%;
-         height: calc(100vh - $base-menu-logo-height);
-         // 消除滚动border
-         .el-menu {
-           border-right: 0;
+       // 设置字体颜色
+       color: white;
+       .layout_slider {
+         width: $base-menu-width;
+         height: 100vh;
+         background: $base-menu-background;
+         // 设置滚动条样式
+         .scrollbar {
+           width: 100%;
+           height: calc(100vh - $base-menu-logo-height);
+           // 消除滚动border
+           .el-menu {
+             border-right: 0;
+           }
          }
        }
+       .layout_tabbar {
+         position: fixed;
+         width: calc(100% - $base-menu-width);
+         height: $base-tabbar-height;
+         background: cyan;
+         top: 0;
+         left: $base-menu-width;
+       }
+       .layout_main {
+         position: absolute;
+         width: calc(100% - $base-menu-width);
+         height: calc(100vh - $base-tabbar-height);
+         background-color: yellowgreen;
+         left: $base-menu-width;
+         top: $base-tabbar-height;
+         padding: 20px;
+         overflow: auto;
+       }
      }
-     .layout_tabbar {
-       position: fixed;
-       width: calc(100% - $base-menu-width);
-       height: $base-tabbar-height;
-       background: cyan;
-       top: 0;
-       left: $base-menu-width;
-     }
-     .layout_main {
-       position: absolute;
-       width: calc(100% - $base-menu-width);
-       height: calc(100vh - $base-tabbar-height);
-       background-color: yellowgreen;
-       left: $base-menu-width;
-       top: $base-tabbar-height;
-       padding: 20px;
-       overflow: auto;
-     }
-   }
    </style>
    ```
 
@@ -2189,8 +2123,6 @@ description:
    </template>
    ```
 
-   
-
 ### 6.4 动态菜单组件
 
 1. 封装组件
@@ -2214,7 +2146,7 @@ description:
        </el-sub-menu>
      </el-menu>
    </template>
-   
+
    <script setup lang="ts"></script>
    <style lang="scss" scoped></style>
    ```
@@ -2230,7 +2162,7 @@ description:
          <Logo></Logo>
          <!-- 滚动组件 -->
          <el-scrollbar class="scrollbar">
-           <Menu></Menu>
+           <menu></menu>
          </el-scrollbar>
        </div>
        <!-- 顶部导航 -->
@@ -2241,10 +2173,10 @@ description:
        </div>
      </div>
    </template>
-   
+
    <script setup lang="ts">
-   import Logo from './logo/index.vue'
-   import Menu from './menu/index.vue'
+     import Logo from './logo/index.vue'
+     import Menu from './menu/index.vue'
    </script>
    ```
 
@@ -2256,7 +2188,7 @@ description:
 
      ```js
      import { RouteRecordRaw } from 'vue-router'
-     
+
      export interface UserState {
        token: string | null
        menuRoutes: RouteRecordRaw[] // 路由类型
@@ -2267,7 +2199,7 @@ description:
 
      ```js
      import { constantRoute } from '@/router/router'
-     
+
      // 创建用户仓库
      const useUserStore = defineStore('User', {
        // 用户仓库存储数据地方
@@ -2362,7 +2294,7 @@ description:
        </div>
      </div>
    </template>
-   
+
    <script setup lang="ts">
    import Logo from './logo/index.vue'
    import Menu from './menu/index.vue'
@@ -2386,7 +2318,7 @@ description:
            <span>{{ item.meta.title }}</span>
          </template>
        </el-menu-item>
-   
+
        <!-- 有子路由但只有一个子路由 -->
        <el-menu-item
          v-if="item.children && item.children.length === 1"
@@ -2397,7 +2329,7 @@ description:
            <span>{{ item.children[0].meta.title }}</span>
          </template>
        </el-menu-item>
-   
+
        <!-- 有子路由且个数大于一个 -->
        <el-sub-menu
          :index="item.path"
@@ -2407,20 +2339,20 @@ description:
            <span>{{ item.meta.title }}</span>
          </template>
          <!-- 递归创建菜单 -->
-         <Menu :menuList="item.children"></Menu>
+         <menu :menuList="item.children"></menu>
        </el-sub-menu>
      </template>
    </template>
-   
+
    <script setup lang="ts">
-   //获取父组件传递过来的全部路由数组
-   defineProps(['menuList'])
+     //获取父组件传递过来的全部路由数组
+     defineProps(['menuList'])
    </script>
    <script lang="ts">
-   export default {
-     // eslint-disable-next-line vue/no-reserved-component-names
-     name: 'Menu',
-   }
+     export default {
+       // eslint-disable-next-line vue/no-reserved-component-names
+       name: 'Menu',
+     }
    </script>
    <style lang="scss" scoped></style>
    ```
@@ -2507,7 +2439,7 @@ description:
              </template>
            </el-menu-item>
          </template>
-     
+
          <!-- 有子路由但只有一个子路由 -->
          <template v-if="item.children && item.children.length === 1">
            <el-menu-item
@@ -2520,7 +2452,7 @@ description:
              </template>
            </el-menu-item>
          </template>
-     
+
          <!-- 有子路由且个数大于一个 -->
          <el-sub-menu
            v-if="item.children && item.children.length >= 2"
@@ -2534,7 +2466,7 @@ description:
          </el-sub-menu>
        </template>
      </template>
-     
+
      <script setup lang="ts">
      //获取父组件传递过来的全部路由数组
      defineProps(['menuList'])
@@ -2559,7 +2491,7 @@ description:
      import type { App, Component } from 'vue'
      //引入element-plus提供全部图标组件
      import * as ElementPlusIconsVue from '@element-plus/icons-vue'
-     
+
      const components: { [name: string]: Component } = { SvgIcon }
      //对外暴露插件对象
      export default {
@@ -2646,7 +2578,7 @@ description:
          <template v-if="!item.children">
            <el-menu-item :index="item.path" v-if="!item.meta.hidden">
              <!-- 图标 -->
-             <el-icon> 
+             <el-icon>
                <component :is="item.meta.icon"></component>
              </el-icon>
              <template #title>
@@ -2681,20 +2613,20 @@ description:
              </el-icon>
              <span>{{ item.meta.title }}</span>
            </template>
-           <Menu :menuList="item.children"></Menu>
+           <menu :menuList="item.children"></menu>
          </el-sub-menu>
        </template>
      </template>
-     
+
      <script setup lang="ts">
-     //获取父组件传递过来的全部路由数组
-     defineProps(['menuList'])
+       //获取父组件传递过来的全部路由数组
+       defineProps(['menuList'])
      </script>
      <script lang="ts">
-     export default {
-       // eslint-disable-next-line vue/no-reserved-component-names
-       name: 'Menu',
-     }
+       export default {
+         // eslint-disable-next-line vue/no-reserved-component-names
+         name: 'Menu',
+       }
      </script>
      <style lang="scss" scoped></style>
      ```
@@ -2710,7 +2642,7 @@ description:
        <template v-if="!item.children">
          <el-menu-item
            :index="item.path"
-           v-if="!item.meta.hidden"   
+           v-if="!item.meta.hidden"
            @click="goRoute(item.path)"
          >
            <el-icon>
@@ -2752,10 +2684,10 @@ description:
        </el-sub-menu>
      </template>
    </template>
-   
+
    <script setup lang="ts">
    import { useRouter } from 'vue-router'
-   
+
    // 获取父组件传递过来的全部路由数组
    defineProps(['menuList'])
    const route = useRouter()
@@ -2772,8 +2704,6 @@ description:
    </script>
    <style lang="scss" scoped></style>
    ```
-
-   
 
 ### 6.5 封装Main组件
 
@@ -2793,19 +2723,19 @@ description:
        </transition>
      </router-view>
    </template>
-   
+
    <script setup lang="ts"></script>
-   
+
    <style lang="scss" scoped>
-   .fade-enter-from {
-     opacity: 0;
-   }
-   .fade-enter-active {
-     transition: all 0.3s;
-   }
-   .fade-enter-to {
-     opacity: 1;
-   }
+     .fade-enter-from {
+       opacity: 0;
+     }
+     .fade-enter-active {
+       transition: all 0.3s;
+     }
+     .fade-enter-to {
+       opacity: 1;
+     }
    </style>
    ```
 
@@ -2823,7 +2753,7 @@ description:
          <!-- 滚动组件 -->
          <el-scrollbar class="scrollbar">
            <el-menu background-color="#001529" text-color="white">
-             <Menu :menuList="userStore.menuRoutes"></Menu>
+             <menu :menuList="userStore.menuRoutes"></menu>
            </el-menu>
          </el-scrollbar>
        </div>
@@ -2831,13 +2761,11 @@ description:
        <div class="layout_tabbar"></div>
        <!-- 内容展示区域 -->
        <div class="layout_main">
-         <Main></Main>
+         <main></main>
        </div>
      </div>
    </template>
    ```
-
-   
 
 ### 6.6 配置全路由
 
@@ -2940,8 +2868,6 @@ description:
 
 2. 创建相应组件
 
-
-
 ### 6.7 菜单刷新展示
 
 1. 问题
@@ -2966,7 +2892,7 @@ description:
              text-color="white"
              :default-active="route.path"
            >
-             <Menu :menuList="userStore.menuRoutes"></Menu>
+             <menu :menuList="userStore.menuRoutes"></menu>
            </el-menu>
          </el-scrollbar>
        </div>
@@ -2974,25 +2900,23 @@ description:
        <div class="layout_tabbar"></div>
        <!-- 内容展示区域 -->
        <div class="layout_main">
-         <Main></Main>
+         <main></main>
        </div>
      </div>
    </template>
-   
+
    <script setup lang="ts">
-   import Logo from './logo/index.vue'
-   import Menu from './menu/index.vue'
-   import useUserStore from '@/store/modules/user'
-   import Main from './main/index.vue'
-   import { useRoute } from 'vue-router'
-   
-   const userStore = useUserStore()
-   // 获取路由
-   const route = useRoute()
+     import Logo from './logo/index.vue'
+     import Menu from './menu/index.vue'
+     import useUserStore from '@/store/modules/user'
+     import Main from './main/index.vue'
+     import { useRoute } from 'vue-router'
+
+     const userStore = useUserStore()
+     // 获取路由
+     const route = useRoute()
    </script>
    ```
-
-   
 
 ### 6.8 顶部tabbar组件
 
@@ -3043,35 +2967,33 @@ description:
        </div>
      </div>
    </template>
-   
+
    <script setup lang="ts"></script>
-   
+
    <style lang="scss" scoped>
-   .tabbar {
-     width: 100%;
-     height: 100%;
-     display: flex;
-     justify-content: space-between;
-     background-image: linear-gradient(
-       to right,
-       rgb(236, 229, 229),
-       rgb(151, 136, 136),
-       rgb(240, 234, 234)
-     );
-     .tabbar_left {
+     .tabbar {
+       width: 100%;
+       height: 100%;
        display: flex;
-       align-items: center;
-       margin-left: 20px;
+       justify-content: space-between;
+       background-image: linear-gradient(
+         to right,
+         rgb(236, 229, 229),
+         rgb(151, 136, 136),
+         rgb(240, 234, 234)
+       );
+       .tabbar_left {
+         display: flex;
+         align-items: center;
+         margin-left: 20px;
+       }
+       .tabbar_right {
+         display: flex;
+         align-items: center;
+       }
      }
-     .tabbar_right {
-       display: flex;
-       align-items: center;
-     }
-   }
    </style>
    ```
-
-   
 
 2. 拆分组件
 
@@ -3089,10 +3011,9 @@ description:
        <el-breadcrumb-item>用户管理</el-breadcrumb-item>
      </el-breadcrumb>
    </template>
-   
-   <script setup lang="ts">
-   </script>
-   
+
+   <script setup lang="ts"></script>
+
    <style lang="scss" scoped></style>
    ```
 
@@ -3122,9 +3043,9 @@ description:
        </template>
      </el-dropdown>
    </template>
-   
+
    <script setup lang="ts"></script>
-   
+
    <style lang="scss" scoped></style>
    ```
 
@@ -3141,14 +3062,12 @@ description:
        </div>
      </div>
    </template>
-   
+
    <script setup lang="ts">
-   import Breadcrumb from './breadcrumb/index.vue'
-   import Setting from './setting/index.vue'
+     import Breadcrumb from './breadcrumb/index.vue'
+     import Setting from './setting/index.vue'
    </script>
    ```
-
-
 
 ### 6.9 菜单折叠
 
@@ -3173,19 +3092,19 @@ description:
        <el-breadcrumb-item>用户管理</el-breadcrumb-item>
      </el-breadcrumb>
    </template>
-   
+
    <script setup lang="ts">
-   import useSettingStore from '@/store/modules/setting'
-   
-   //获取layout配置相关的仓库
-   let settingStore = useSettingStore()
-   
-   const changeIcon = () => {
-     console.log(settingStore.fold)
-     settingStore.fold = !settingStore.fold
-   }
+     import useSettingStore from '@/store/modules/setting'
+
+     //获取layout配置相关的仓库
+     let settingStore = useSettingStore()
+
+     const changeIcon = () => {
+       console.log(settingStore.fold)
+       settingStore.fold = !settingStore.fold
+     }
    </script>
-   
+
    <style lang="scss" scoped></style>
    ```
 
@@ -3198,7 +3117,7 @@ description:
    ```js
    //小仓库：layout组件相关配置仓库
    import { defineStore } from 'pinia'
-   
+
    const useSettingStore = defineStore('SettingStore', {
      state: () => {
        return {
@@ -3206,7 +3125,7 @@ description:
        }
      },
    })
-   
+
    export default useSettingStore
    ```
 
@@ -3234,42 +3153,41 @@ description:
          <div
            class="layout_slider"
            :class="{ fold: settingStore.fold ? true : false }"
-         >
-         </div>
+         ></div>
        </div>
      </template>
-     
+
      <script setup lang="ts">
-     import useSettingStore from '@/store/modules/setting'
-     
-     const settingStore = useSettingStore()
+       import useSettingStore from '@/store/modules/setting'
+
+       const settingStore = useSettingStore()
      </script>
-     
+
      <style lang="scss" scoped>
-     .layout_container {
-       width: 100%;
-       height: 100vh;
-       color: white;
-       .layout_slider {
-         width: $base-menu-width;
+       .layout_container {
+         width: 100%;
          height: 100vh;
-         background: $base-menu-background;
-         transition: all 0.1s;
-         // 添加左侧菜单最小宽度
-         &.fold {
-           width: $base-menu-min-width;
-         }
-     
-         .scrollbar {
-           width: 100%;
-           height: calc(100vh - $base-menu-logo-height);
-     
-           .el-menu {
-             border-right: 0;
+         color: white;
+         .layout_slider {
+           width: $base-menu-width;
+           height: 100vh;
+           background: $base-menu-background;
+           transition: all 0.1s;
+           // 添加左侧菜单最小宽度
+           &.fold {
+             width: $base-menu-min-width;
+           }
+
+           .scrollbar {
+             width: 100%;
+             height: calc(100vh - $base-menu-logo-height);
+
+             .el-menu {
+               border-right: 0;
+             }
            }
          }
        }
-     }
      </style>
      ```
 
@@ -3297,7 +3215,7 @@ description:
                :default-active="route.path"
                :collapse="settingStore.fold"
              >
-               <Menu :menuList="userStore.menuRoutes"></Menu>
+               <menu :menuList="userStore.menuRoutes"></menu>
              </el-menu>
            </el-scrollbar>
          </div>
@@ -3319,31 +3237,31 @@ description:
        </div>
      </div>
    </template>
-   
+
    <script setup lang="ts">
-   import useSettingStore from '@/store/modules/setting'
-       
-   const settingStore = useSettingStore()
+     import useSettingStore from '@/store/modules/setting'
+
+     const settingStore = useSettingStore()
    </script>
-   
+
    <style lang="scss" scoped>
-     .layout_tabbar {
-       position: fixed;
-       width: calc(100% - $base-menu-width);
-       height: $base-tabbar-height;
-       background: cyan;
-       top: 0;
-       left: $base-menu-width;
-       transition: all 0.1s;
-   
-       &.fold {
-         // 宽度 = 界面宽度 - 折叠后菜单栏所占宽度
-         width: calc(100vw - $base-menu-min-width);
-         // 距离折叠后菜单栏宽度
-         left: $base-menu-min-width;
+       .layout_tabbar {
+         position: fixed;
+         width: calc(100% - $base-menu-width);
+         height: $base-tabbar-height;
+         background: cyan;
+         top: 0;
+         left: $base-menu-width;
+         transition: all 0.1s;
+
+         &.fold {
+           // 宽度 = 界面宽度 - 折叠后菜单栏所占宽度
+           width: calc(100vw - $base-menu-min-width);
+           // 距离折叠后菜单栏宽度
+           left: $base-menu-min-width;
+         }
        }
      }
-   }
    </style>
    ```
 
@@ -3357,51 +3275,34 @@ description:
          class="layout_main"
          :class="{ fold: settingStore.fold ? true : false }"
        >
-         <Main></Main>
+         <main></main>
        </div>
      </div>
    </template>
-   
+
    <script setup lang="ts">
-   import useSettingStore from '@/store/modules/setting'
-   
-   const settingStore = useSettingStore()
+     import useSettingStore from '@/store/modules/setting'
+
+     const settingStore = useSettingStore()
    </script>
-   
+
    <style lang="scss" scoped>
-     .layout_main {
-       position: absolute;
-       width: calc(100% - $base-menu-width);
-       height: calc(100vh - $base-tabbar-height);
-       background-color: yellowgreen;
-       left: $base-menu-width;
-       top: $base-tabbar-height;
-       padding: 20px;
-       overflow: auto;
-       transition: all 0.1s;
-   
-       &.fold {
-         width: calc(100vw - $base-menu-min-width);
-         left: $base-menu-min-width;
+       .layout_main {
+         position: absolute;
+         width: calc(100% - $base-menu-width);
+         height: calc(100vh - $base-tabbar-height);
+         background-color: yellowgreen;
+         left: $base-menu-width;
+         top: $base-tabbar-height;
+         padding: 20px;
+         overflow: auto;
+         transition: all 0.1s;
+
+         &.fold {
+           width: calc(100vw - $base-menu-min-width);
+           left: $base-menu-min-width;
+         }
        }
      }
-   }
    </style>
    ```
-
-  
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

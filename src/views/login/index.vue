@@ -47,7 +47,7 @@
 import { User, Lock } from '@element-plus/icons-vue'
 import { reactive, ref } from 'vue'
 import useUserStore from '@/store/modules/user'
-import { useRouter } from 'vue-router'
+import { useRouter, useRoute } from 'vue-router'
 import { ElNotification } from 'element-plus'
 import { getTime } from '@/utils/time'
 
@@ -102,16 +102,19 @@ const rules = {
 const loginFormRef = ref()
 
 const router = useRouter()
+const route = useRoute()
 let userStore = useUserStore()
 // 登录
 const login = async () => {
   //保证全部表单项校验通过
   await loginFormRef.value.validate()
-
   loadType.value = true
   try {
-    await userStore.userLogin(loginForm)
-    router.push('/')
+    await userStore.userLoginAction(loginForm)
+    //编程式导航跳转到展示数据首页
+    //判断登录的时候,路由路径当中是否有query参数，如果有就往query参数挑战，没有跳转到首页
+    let redirect: any = route.query.redirect
+    router.push({ path: redirect || '/' })
     ElNotification({
       type: 'success',
       message: '欢迎回来',
