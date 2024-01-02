@@ -1,14 +1,6 @@
----
-title: Vue后台管理项目模板
-tags:
-  - null
-categories:
-  - null
-mathjax: true
-abbrlink: 9cabbd4
-date: 2023-12-15 15:24:56
-description:
----
+> 本项目是基于尚硅谷-《硅谷甄选项目》进行模板搭建，模板基于vue3、pinia、vite等构建。
+>
+> https://www.bilibili.com/video/BV1Xh411V7b5?p=1&spm_id_from=pageDriver&vd_source=71ee50a188aef8badf0cf803edb637dc
 
 ## 1. 项目初始化
 
@@ -35,7 +27,7 @@ description:
    ```js
    // 安装依赖
    pnpm i
-
+   
    // 安装完依赖运行程序
    pnpm run dev
    ```
@@ -688,12 +680,12 @@ description:
      <template>
        <div>Hello</div>
      </template>
-
+     
      <script lang="ts">
        console.log(import.meta.env)
        export default {}
      </script>
-
+     
      <style></style>
      ```
 
@@ -1350,11 +1342,11 @@ description:
 
      ```html
      <!-- App.vue -->
-
+     
      <template>
        <div><router-view></router-view></div>
      </template>
-
+     
      <script setup lang="ts"></script>
      <style></style>
      ```
@@ -1367,7 +1359,7 @@ description:
 
    ```html
    <!-- src/views/login/index.vue -->
-
+   
    <template>
      <div class="login_container">
        <el-row>
@@ -1406,17 +1398,17 @@ description:
        </el-row>
      </div>
    </template>
-
+   
    <script setup lang="ts">
      import { User, Lock } from '@element-plus/icons-vue'
      import { reactive } from 'vue'
-
+   
      // 登录效果
      let loadType = ref(false)
      //收集账号与密码数据
      let loginForm = reactive({ username: 'admin', password: '111111' })
    </script>
-
+   
    <style lang="scss" scoped>
      .login_container {
        width: 100%;
@@ -1514,16 +1506,16 @@ description:
 
    ```js
    // src/api/user/index.ts
-
+   
    // 同一管理用户相关的接口
    import request from '@/utils/request'
    import { loginForm, loginResponseData } from './type'
-
+   
    // 统一管理API
    enum API {
      LOGIN_URL = '/user/login',
    }
-
+   
    // 暴露请求函数
    // 登录接口
    export const reqLogin = (data: loginForm) =>
@@ -1591,14 +1583,14 @@ description:
 
    ```js
    // src/store/modules/user.ts
-
+   
    // 创建用户相关的小仓库
    import { defineStore } from 'pinia'
    import { loginForm, loginResponseData } from '@/api/user/type'
    import { reqLogin } from '@/api/user'
    import { GET_TOKEN, SET_TOKEN } from '@/utils/token'
    import { UserState } from './type/type'
-
+   
    // 创建用户小仓库
    const useUserStore = defineStore('User', {
      // 用户仓库存储数据地方
@@ -1634,19 +1626,19 @@ description:
 
    ```js
    <!-- src/views/login/index.vue -->
-
+   
    <script setup lang="ts">
    import { User, Lock } from '@element-plus/icons-vue'
    import { reactive, ref } from 'vue'
    import useUserStore from '@/store/modules/user'
    import { useRouter } from 'vue-router'
    import { ElNotification } from 'element-plus'
-
+   
    // 登录效果
    let loadType = ref(false)
    //收集账号与密码数据
    let loginForm = reactive({ username: 'admin', password: '111111' })
-
+   
    const router = useRouter()
    let userStore = useUserStore()
    // 登录
@@ -1780,7 +1772,7 @@ description:
    const login = async () => {
      //保证全部表单项校验通过
      await loginFormRef.value.validate()
-
+   
      ...
    }
    ```
@@ -1896,15 +1888,15 @@ description:
 
    ```css
    // scr/styles/index.scss
-
+   
    //引入清除默认样式
    @import './reset.scss';
-
+   
    //滚动条外观设置
    ::-webkit-scrollbar {
        width: 10px;
    }
-
+   
    ::-webkit-scrollbar-thumb {
        width: 10px;
        background-color: yellowgreen;
@@ -2007,7 +1999,7 @@ description:
        <p>{{ setting.title }}</p>
      </div>
    </template>
-
+   
    <script setup lang="ts">
      import setting from '@/setting'
    </script>
@@ -2199,7 +2191,7 @@ description:
 
      ```js
      import { constantRoute } from '@/router/router'
-
+  
      // 创建用户仓库
      const useUserStore = defineStore('User', {
        // 用户仓库存储数据地方
@@ -2439,7 +2431,7 @@ description:
              </template>
            </el-menu-item>
          </template>
-
+  
          <!-- 有子路由但只有一个子路由 -->
          <template v-if="item.children && item.children.length === 1">
            <el-menu-item
@@ -2452,7 +2444,7 @@ description:
              </template>
            </el-menu-item>
          </template>
-
+  
          <!-- 有子路由且个数大于一个 -->
          <el-sub-menu
            v-if="item.children && item.children.length >= 2"
@@ -2466,7 +2458,7 @@ description:
          </el-sub-menu>
        </template>
      </template>
-
+  
      <script setup lang="ts">
      //获取父组件传递过来的全部路由数组
      defineProps(['menuList'])
@@ -2617,7 +2609,7 @@ description:
          </el-sub-menu>
        </template>
      </template>
-
+  
      <script setup lang="ts">
        //获取父组件传递过来的全部路由数组
        defineProps(['menuList'])
@@ -2684,10 +2676,10 @@ description:
        </el-sub-menu>
      </template>
    </template>
-
+   
    <script setup lang="ts">
    import { useRouter } from 'vue-router'
-
+   
    // 获取父组件传递过来的全部路由数组
    defineProps(['menuList'])
    const route = useRouter()
@@ -2904,14 +2896,14 @@ description:
        </div>
      </div>
    </template>
-
+   
    <script setup lang="ts">
      import Logo from './logo/index.vue'
      import Menu from './menu/index.vue'
      import useUserStore from '@/store/modules/user'
      import Main from './main/index.vue'
      import { useRoute } from 'vue-router'
-
+   
      const userStore = useUserStore()
      // 获取路由
      const route = useRoute()
@@ -3011,9 +3003,9 @@ description:
        <el-breadcrumb-item>用户管理</el-breadcrumb-item>
      </el-breadcrumb>
    </template>
-
+   
    <script setup lang="ts"></script>
-
+   
    <style lang="scss" scoped></style>
    ```
 
@@ -3043,9 +3035,9 @@ description:
        </template>
      </el-dropdown>
    </template>
-
+   
    <script setup lang="ts"></script>
-
+   
    <style lang="scss" scoped></style>
    ```
 
@@ -3062,7 +3054,7 @@ description:
        </div>
      </div>
    </template>
-
+   
    <script setup lang="ts">
      import Breadcrumb from './breadcrumb/index.vue'
      import Setting from './setting/index.vue'
@@ -3279,13 +3271,13 @@ description:
        </div>
      </div>
    </template>
-
+   
    <script setup lang="ts">
      import useSettingStore from '@/store/modules/setting'
-
+   
      const settingStore = useSettingStore()
    </script>
-
+   
    <style lang="scss" scoped>
        .layout_main {
          position: absolute;
@@ -3297,7 +3289,7 @@ description:
          padding: 20px;
          overflow: auto;
          transition: all 0.1s;
-
+   
          &.fold {
            width: calc(100vw - $base-menu-min-width);
            left: $base-menu-min-width;
@@ -3439,7 +3431,7 @@ description:
    <script setup lang="ts">
      import { ref, watch, nextTick } from 'vue'
      import useSettingStore from '@/store/modules/setting'
-
+   
      const settingStore = useSettingStore()
      //控制当前组件是否销毁重建
      let flag = ref(true)
@@ -3488,7 +3480,7 @@ description:
          }
        }
      </script>
-
+   
      <style lang="scss" scoped></style>
    </template>
    ```
@@ -3649,12 +3641,12 @@ description:
        </template>
      </el-dropdown>
    </template>
-
+   
    <script setup lang="ts">
      import useSettingStore from '@/store/modules/setting'
      import useUserStore from '@/store/modules/user'
      import useStore from 'element-plus/es/components/table/src/store/index.mjs'
-
+   
      const userStore = useUserStore()
    </script>
    ```
@@ -3816,7 +3808,7 @@ description:
    //为什么要引pinia
    import pinia from './store'
    const userStore = useUserStore(pinia)
-
+   
    //全局前置守卫
    router.beforeEach(async (to: any, from: any, next: any) => {
      //网页的名字
@@ -3862,17 +3854,17 @@ description:
      }
      next()
    })
-
+   
    //全局后置守卫
    router.afterEach((to: any, from: any) => {
      // to and from are both route objects.
      nprogress.done()
    })
-
+   
    //第一个问题：任意路由切换实现进度条业务 ----nprogress
    //第二个问题：路由鉴权
    //全部路由组件 ：登录|404|任意路由|首页|权限管理（三个子路由）|
-
+   
    //用户未登录 ：可以访问login 其余都不行
    //登陆成功：不可以访问login 其余都可以
    ```
