@@ -3306,3 +3306,581 @@ description:
      }
    </style>
    ```
+
+### 6.10 动态更新面包屑
+
+1. 获取路由
+
+   使用route.matched函数，此函数能得到当前路由的信息
+
+   ![](https://tuchuang1.pages.dev/img/vue_template/image-20240102111106668.png)
+
+2. 修改界面
+
+   `src\layout\tabbar\breadcrumb\index.vue`
+
+   ```html
+   <template>
+     <!-- 左侧的面包屑 -->
+     <el-breadcrumb separator-icon="ArrowRight">
+       <el-breadcrumb-item
+         v-for="(item, index) in route.matched"
+         :key="index"
+         v-show="item.meta.title"
+         :to="item.path"
+       >
+         {{ item.meta.title }}
+       </el-breadcrumb-item>
+     </el-breadcrumb>
+   </template>
+
+   <script setup lang="ts">
+     import useSettingStore from '@/store/modules/setting'
+     import { useRoute } from 'vue-router'
+
+     // 获取layout配置相关的仓库
+     let settingStore = useSettingStore()
+     // 路由
+     const route = useRoute()
+
+     const changeIcon = () => {
+       console.log(settingStore.fold)
+       settingStore.fold = !settingStore.fold
+     }
+   </script>
+
+   <style lang="scss" scoped></style>
+   ```
+
+   - v-show控制无标题时不显示`>`
+
+3. 设置点击权限管理时自动跳转到用户管理
+
+   `src\router\router.ts`
+
+   ```js
+   {
+       path: '/acl',
+       component: () => import('@/layout/index.vue'),
+       name: 'Acl',
+       meta: {
+         hidden: false,
+         title: '权限管理',
+         icon: 'Lock',
+       },
+       redirect: '/acl/user',
+   }
+   ```
+
+### 6.11 刷新功能实现
+
+1. 在setting仓库添加refresh属性
+
+   `src\store\modules\setting.ts`
+
+   ```js
+   //小仓库：layout组件相关配置仓库
+   import { defineStore } from 'pinia'
+
+   const useSettingStore = defineStore('SettingStore', {
+     state: () => {
+       return {
+         fold: false, //用户控制菜单折叠还是收起的控制
+         refresh: false, //用于控制刷新效果
+       }
+     },
+   })
+
+   export default useSettingStore
+   ```
+
+2. 在setting.vue组件中配置刷新按钮点击事件
+
+   `src\layout\tabbar\setting\index.vue`
+
+   ```html
+   <template>
+     <el-button
+       size="small"
+       icon="Refresh"
+       circle
+       @click="updateRefresh"
+     ></el-button>
+   </template>
+
+   <script setup lang="ts">
+     import useSettingStore from '@/store/modules/setting'
+
+     const settingStore = useSettingStore()
+     const updateRefresh = () => {
+       settingStore.refresh = !settingStore.refresh
+     }
+   </script>
+
+   <style lang="scss" scoped></style>
+   ```
+
+3. 在main组件中监听按钮状态值，状态值变化就重建路由组件
+
+   `src\layout\main\index.vue`
+
+   ```html
+   <template>
+     <!-- 路由组件出口的位置 -->
+     <router-view v-slot="{ Component }">
+       <transition name="fade">
+         <div v-if="flag">
+           <!-- 渲染layout一级路由的子路由 -->
+           <component :is="Component" />
+         </div>
+       </transition>
+     </router-view>
+   </template>
+   <script setup lang="ts">
+     import { ref, watch, nextTick } from 'vue'
+     import useSettingStore from '@/store/modules/setting'
+
+     const settingStore = useSettingStore()
+     //控制当前组件是否销毁重建
+     let flag = ref(true)
+     //监听仓库内部的数据是否发生变化，如果发生变化，说明用户点击过刷新按钮
+     watch(
+       () => settingStore.refresh,
+       () => {
+         //点击刷新按钮：路由组件销毁
+         flag.value = false
+         // 异步刷新，vue重建DOM后会调用该方法
+         // https://lianyutian.github.io/posts/dd58b23f.html 9.5章节
+         nextTick(() => {
+           flag.value = true
+         })
+       },
+     )
+   </script>
+   ```
+
+### 6.12 全屏功能实现
+
+1. 绑定全屏按钮点击事件
+
+   `src\layout\tabbar\setting\index.vue`
+
+   ```html
+   <template>
+     <el-button
+       size="small"
+       icon="FullScreen"
+       circle
+       @click="fullScreen"
+     ></el-button>
+     <script setup lang="ts">
+       // 全屏功能
+       const fullScreen = () => {
+         // DOM对象的一个属性：可以用来判断当前是不是全屏的模式【全屏：true，不是全屏：false】
+         let full = document.fullscreenElement
+         // 切换成全屏
+         if (!full) {
+           // 文档根节点的方法requestFullscreen实现全屏
+           document.documentElement.requestFullscreen()
+         } else {
+           // 退出全屏
+           document.exitFullscreen()
+         }
+       }
+     </script>
+
+     <style lang="scss" scoped></style>
+   </template>
+   ```
+
+## 7. 登录功能完善
+
+### 7.1 获取用户信息
+
+1. 添加用户state存储类型和属性
+
+   `src\store\modules\type\type.ts`
+
+   ```js
+   import { RouteRecordRaw } from 'vue-router'
+
+   export interface UserState {
+     token: string | null
+     menuRoutes: RouteRecordRaw[]
+     username: string
+     avatar: string
+   }
+   ```
+
+   `src\store\modules\user.ts`
+
+   ```js
+   // 创建用户小仓库
+   const useUserStore = defineStore('UserStore', {
+     // 用户仓库存储数据地方
+     state(): UserState {
+       return {
+         token: GET_TOKEN(),
+         menuRoutes: constantRoute,
+         username: '',
+         avatar: '', // 用户头像
+       }
+     },
+   }
+   ```
+
+2. 添加获取信息方法 userInfoAction
+
+   `src\store\modules\user.ts`
+
+   ```js
+   // src/store/modules/user.ts
+
+   // 创建用户相关的仓库
+   import { defineStore } from 'pinia'
+   import { loginForm, loginResponseData } from '@/api/user/type'
+   import { reqLogin, reqUserInfo } from '@/api/user'
+   import { GET_TOKEN, SET_TOKEN } from '@/utils/token'
+   import { UserState } from './type/type'
+   import { constantRoute } from '@/router/router'
+
+   // 创建用户小仓库
+   const useUserStore = defineStore('UserStore', {
+     // 用户仓库存储数据地方
+     state(): UserState {
+       return {
+         token: GET_TOKEN(),
+         menuRoutes: constantRoute,
+         username: '',
+         avatar: '',
+       }
+     },
+     // 处理异步|逻辑地方
+     actions: {
+       // 获取用户信息
+       async userInfoAction() {
+         const result = await reqUserInfo()
+         if (result.code === 200) {
+           this.username = result.data.checkUser.username
+           this.avatar = result.data.checkUser.avatar
+         }
+         console.log(result)
+       },
+     },
+     getters: {},
+   })
+   // 对外暴露小仓库
+   export default useUserStore
+   ```
+
+3. 修改请求携带token信息
+
+   此前获取用户信息，未携带token会获取不到用户信息
+
+   `src\utils\request.ts`
+
+   ```js
+   import axios from 'axios'
+   import { ElMessage } from 'element-plus'
+   import useUserStore from '@/store/modules/user'
+
+   //创建axios实例
+   const request = axios.create({
+     baseURL: import.meta.env.VITE_APP_BASE_API,
+     timeout: 5000,
+   })
+   //请求拦截器
+   request.interceptors.request.use((config) => {
+     //获取用户相关的小仓库，获取token，登录成功以后携带个i服务器
+     const userStore = useUserStore()
+     if (userStore.token) {
+       config.headers.token = userStore.token
+     }
+     //config配置对象，headers请求头，经常给服务器端携带公共参数
+     //返回配置对象
+     return config
+   })
+   ```
+
+4. home组件挂载获取用户信息
+
+   > 登录之后页面（home）上来就要获取用户信息。并且将它使用到页面中
+
+   `src\views\home\index.vue`
+
+   ```html
+   <template>
+     <div>一级路由home</div>
+   </template>
+
+   <script setup lang="ts">
+     import { onMounted } from 'vue'
+     import useUserStore from '@/store/modules/user'
+
+     const userStore = useUserStore()
+     onMounted(() => {
+       userStore.userInfoAction()
+     })
+   </script>
+   ```
+
+5. 修改设置组件中的用户信息
+
+   `src\layout\tabbar\setting\index.vue`
+
+   ```html
+   <template>
+     <img
+       :src="userStore.avatar"
+       style="width: 24px; height: 24px; margin: 0px 10px"
+     />
+     <!-- 下拉菜单 -->
+     <el-dropdown>
+       <span class="el-dropdown-link">
+         {{ userStore.username }}
+         <el-icon class="el-icon--right">
+           <arrow-down />
+         </el-icon>
+       </span>
+       <template #dropdown>
+         <el-dropdown-menu>
+           <el-dropdown-item>退出登陆</el-dropdown-item>
+         </el-dropdown-menu>
+       </template>
+     </el-dropdown>
+   </template>
+
+   <script setup lang="ts">
+     import useSettingStore from '@/store/modules/setting'
+     import useUserStore from '@/store/modules/user'
+     import useStore from 'element-plus/es/components/table/src/store/index.mjs'
+
+     const userStore = useUserStore()
+   </script>
+   ```
+
+### 7.2 退出登录
+
+1. 绑定退出登录按钮点击事件
+
+   `src\layout\tabbar\setting\index.vue`
+
+   ```html
+   <template>
+     <!-- 下拉菜单 -->
+     <el-dropdown>
+       <template #dropdown>
+         <el-dropdown-menu>
+           <el-dropdown-item @click="logout">退出登陆</el-dropdown-item>
+         </el-dropdown-menu>
+       </template>
+     </el-dropdown>
+   </template>
+
+   <script setup lang="ts">
+     import useSettingStore from '@/store/modules/setting'
+     import useUserStore from '@/store/modules/user'
+     import { useRouter, useRoute } from 'vue-router'
+
+     const userStore = useUserStore()
+
+     // 退出登录
+     const router = useRouter()
+     const route = useRoute()
+     const logout = () => {
+       //第一件事：需要项服务器发请求【退出登录接口】（我们这里没有）
+       //第二件事：仓库当中和关于用户的相关的数据清空
+       userStore.userLogoutAction()
+       //第三件事：跳转到登陆页面
+       router.push({ path: '/login', query: { redirect: route.path } })
+     }
+   </script>
+   ```
+
+   - 携带的query参数方便下次登陆时直接跳转到当时推出的界面
+
+2. 清空用户信息
+
+   `src\store\modules\user.ts`
+
+   ```js
+   // src/store/modules/user.ts
+
+   // 创建用户相关的仓库
+   import { defineStore } from 'pinia'
+   import { loginForm, loginResponseData } from '@/api/user/type'
+   import { reqLogin, reqUserInfo } from '@/api/user'
+   import { GET_TOKEN, SET_TOKEN, REMOVE_TOKEN } from '@/utils/token'
+   import { UserState } from './type/type'
+   import { constantRoute } from '@/router/router'
+
+   // 创建用户小仓库
+   const useUserStore = defineStore('UserStore', {
+     // 用户仓库存储数据地方
+     state(): UserState {
+       return {
+         token: GET_TOKEN(),
+         menuRoutes: constantRoute,
+         username: '',
+         avatar: '', // 用户头像
+       }
+     },
+     // 处理异步|逻辑地方
+     actions: {
+       // 退出登录
+       userLogoutAction() {
+         //当前没有mock接口（不做）：服务器数据token失效
+         //本地数据清空
+         this.token = ''
+         this.username = ''
+         this.avatar = ''
+         REMOVE_TOKEN()
+       },
+     },
+     getters: {},
+   })
+   // 对外暴露小仓库
+   export default useUserStore
+   ```
+
+3. 添加清除token方法
+
+   `src\utils\token.ts`
+
+   ```js
+   export const REMOVE_TOKEN = () => {
+     localStorage.removeItem('TOKEN')
+   }
+   ```
+
+4. 登录时判断是否有query参数
+
+   `src\views\login\index.vue`
+
+   ```html
+   <script setup lang="ts">
+     const router = useRouter()
+     const route = useRoute()
+     let userStore = useUserStore()
+     // 登录
+     const login = async () => {
+       //保证全部表单项校验通过
+       await loginFormRef.value.validate()
+       loadType.value = true
+       try {
+         await userStore.userLoginAction(loginForm)
+         //编程式导航跳转到展示数据首页
+         //判断登录的时候,路由路径当中是否有query参数，如果有就往query参数挑战，没有跳转到首页
+         let redirect: any = route.query.redirect
+         router.push({ path: redirect || '/' })
+         ElNotification({
+           type: 'success',
+           message: '欢迎回来',
+           title: `HI,${getTime()}好`,
+         })
+         loadType.value = false
+       } catch (error) {
+         loadType.value = false
+         ElNotification({
+           type: 'error',
+           message: (error as Error).message,
+         })
+       }
+     }
+   </script>
+   ```
+
+   - 此时不在首页界面退出登录会有登录后再登录获取不到用户信息的bug，后面修复
+
+### 7.4 路由鉴权
+
+1. 安装进度条组件
+
+   `pnpm i nprogress`
+
+2. 新建`permisstion.ts`
+
+   `src\permisstion.ts`
+
+   ```js
+   //路由鉴权：鉴权：项目当中路由能不能被访问的权限
+   import router from '@/router'
+   import setting from './setting'
+   import nprogress from 'nprogress'
+   //引入进度条样式
+   import 'nprogress/nprogress.css'
+   //进度条的加载圆圈不要
+   nprogress.configure({ showSpinner: false })
+   //获取用户相关的小仓库内部token数据，去判断用户是否登陆成功
+   import useUserStore from '@/store/modules/user'
+   //为什么要引pinia
+   import pinia from './store'
+   const userStore = useUserStore(pinia)
+
+   //全局前置守卫
+   router.beforeEach(async (to: any, from: any, next: any) => {
+     //网页的名字
+     document.title = `${setting.title}-${to.meta.title}`
+     //访问某一个路由之前的守卫
+     nprogress.start()
+     //获取token，去判断用户登录、还是未登录
+     const token = userStore.token
+     //获取用户名字
+     const username = userStore.username
+     //用户登录判断
+     if (token) {
+       //登陆成功，访问login。指向首页
+       if (to.path == '/login') {
+         next('/home')
+       } else {
+         //登陆成功访问其余的，放行
+         //有用户信息
+         if (username) {
+           //放行
+           next()
+         } else {
+           //如果没有用户信息，在收尾这里发请求获取到了用户信息再放行
+           try {
+             //获取用户信息
+             await userStore.userInfoAction()
+             next()
+           } catch (error) {
+             //token过期|用户手动处理token
+             //退出登陆->用户相关的数据清空
+             userStore.userLogoutAction()
+             next({ path: '/login', query: { redirect: to.path } })
+           }
+         }
+       }
+     } else {
+       //用户未登录
+       if (to.path == '/login') {
+         next()
+       } else {
+         next({ path: '/login', query: { redirect: to.path } })
+       }
+     }
+     next()
+   })
+
+   //全局后置守卫
+   router.afterEach((to: any, from: any) => {
+     // to and from are both route objects.
+     nprogress.done()
+   })
+
+   //第一个问题：任意路由切换实现进度条业务 ----nprogress
+   //第二个问题：路由鉴权
+   //全部路由组件 ：登录|404|任意路由|首页|权限管理（三个子路由）|
+
+   //用户未登录 ：可以访问login 其余都不行
+   //登陆成功：不可以访问login 其余都可以
+   ```
+
+   - 问题？
+
+     不引入pinia时
+
+     ![](https://tuchuang1.pages.dev/img/vue_template/image-20240102162108423.png)
+
+   - 全局路由守卫将获取用户信息的请求放在了跳转之前。实现了刷新后用户信息丢失的功能
