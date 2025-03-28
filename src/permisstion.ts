@@ -1,11 +1,11 @@
 //路由鉴权：鉴权：项目当中路由能不能被访问的权限
 import router from '@/router'
 import setting from './setting'
-import nprogress from 'nprogress'
+import Nprogress from 'nprogress'
 //引入进度条样式
 import 'nprogress/nprogress.css'
 //进度条的加载圆圈不要
-nprogress.configure({ showSpinner: false })
+Nprogress.configure({ showSpinner: false })
 //获取用户相关的小仓库内部token数据，去判断用户是否登陆成功
 import useUserStore from '@/store/modules/user'
 //为什么要引pinia
@@ -13,11 +13,11 @@ import pinia from './store'
 const userStore = useUserStore(pinia)
 
 //全局前置守卫
-router.beforeEach(async (to: any, from: any, next: any) => {
+router.beforeEach(async (to, from, next) => {
   //网页的名字
   document.title = `${setting.title}-${to.meta.title}`
   //访问某一个路由之前的守卫
-  nprogress.start()
+  Nprogress.start()
   //获取token，去判断用户登录、还是未登录
   const token = userStore.token
   //获取用户名字
@@ -39,7 +39,7 @@ router.beforeEach(async (to: any, from: any, next: any) => {
           //获取用户信息
           await userStore.userInfoAction()
           next()
-        } catch (error) {
+        } catch {
           //token过期|用户手动处理token
           //退出登陆->用户相关的数据清空
           userStore.userLogoutAction()
@@ -58,9 +58,9 @@ router.beforeEach(async (to: any, from: any, next: any) => {
 })
 
 //全局后置守卫
-router.afterEach((to: any, from: any) => {
+router.afterEach(() => {
   // to and from are both route objects.
-  nprogress.done()
+  Nprogress.done()
 })
 
 //第一个问题：任意路由切换实现进度条业务 ----nprogress

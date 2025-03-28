@@ -2,10 +2,10 @@
 
 // 创建用户相关的仓库
 import { defineStore } from 'pinia'
-import { loginForm, loginResponseData } from '@/api/user/type'
+import type { loginForm, loginResponseData } from '@/api/user/type'
 import { reqLogin, reqUserInfo } from '@/api/user'
 import { GET_TOKEN, SET_TOKEN, REMOVE_TOKEN } from '@/utils/token'
-import { UserState } from './type/type'
+import type { UserState } from './type/type'
 import { constantRoute } from '@/router/router'
 
 // 创建用户小仓库
