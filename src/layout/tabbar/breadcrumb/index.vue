@@ -21,7 +21,7 @@ import useSettingStore from '@/store/modules/setting'
 import { useRoute } from 'vue-router'
 
 // 获取layout配置相关的仓库
-let settingStore = useSettingStore()
+const settingStore = useSettingStore()
 // 路由
 const route = useRoute()
 console.log(route.matched)

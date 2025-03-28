@@ -3,19 +3,11 @@
     <el-row>
       <el-col :span="12" :xs="0"></el-col>
       <el-col :span="12" :xs="24">
-        <el-form
-          class="login_form"
-          :rules="rules"
-          :model="loginForm"
-          ref="loginFormRef"
-        >
+        <el-form class="login_form" :rules="rules" :model="loginForm" ref="loginFormRef">
           <h1>Hello</h1>
           <h2>欢迎来到XXX</h2>
           <el-form-item prop="username">
-            <el-input
-              :prefix-icon="User"
-              v-model="loginForm.username"
-            ></el-input>
+            <el-input :prefix-icon="User" v-model="loginForm.username"></el-input>
           </el-form-item>
           <el-form-item prop="password">
             <el-input
@@ -52,9 +44,9 @@ import { ElNotification } from 'element-plus'
 import { getTime } from '@/utils/time'
 
 // 登录效果
-let loadType = ref(false)
+const loadType = ref(false)
 //收集账号与密码数据
-let loginForm = reactive({ username: 'admin', password: '111111' })
+const loginForm = reactive({ username: 'admin', password: '111111' })
 
 //自定义校验规则函数
 const validatorUserName = (_rule: any, value: any, callback: any) => {
@@ -103,7 +95,7 @@ const loginFormRef = ref()
 
 const router = useRouter()
 const route = useRoute()
-let userStore = useUserStore()
+const userStore = useUserStore()
 // 登录
 const login = async () => {
   //保证全部表单项校验通过
@@ -113,7 +105,7 @@ const login = async () => {
     await userStore.userLoginAction(loginForm)
     //编程式导航跳转到展示数据首页
     //判断登录的时候,路由路径当中是否有query参数，如果有就往query参数挑战，没有跳转到首页
-    let redirect: any = route.query.redirect
+    const redirect: any = route.query.redirect
     router.push({ path: redirect || '/' })
     ElNotification({
       type: 'success',

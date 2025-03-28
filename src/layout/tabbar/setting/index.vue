@@ -1,21 +1,8 @@
 <template>
-  <el-button
-    size="small"
-    icon="Refresh"
-    circle
-    @click="updateRefresh"
-  ></el-button>
-  <el-button
-    size="small"
-    icon="FullScreen"
-    circle
-    @click="fullScreen"
-  ></el-button>
+  <el-button size="small" icon="Refresh" circle @click="updateRefresh"></el-button>
+  <el-button size="small" icon="FullScreen" circle @click="fullScreen"></el-button>
   <el-button size="small" icon="Setting" circle></el-button>
-  <img
-    :src="userStore.avatar"
-    style="width: 24px; height: 24px; margin: 0px 10px"
-  />
+  <img :src="userStore.avatar" style="width: 24px; height: 24px; margin: 0px 10px" />
   <!-- 下拉菜单 -->
   <el-dropdown>
     <span class="el-dropdown-link">
@@ -48,7 +35,7 @@ const updateRefresh = () => {
 // 全屏功能
 const fullScreen = () => {
   // DOM对象的一个属性：可以用来判断当前是不是全屏的模式【全屏：true，不是全屏：false】
-  let full = document.fullscreenElement
+  const full = document.fullscreenElement
   // 切换成全屏
   if (!full) {
     // 文档根节点的方法requestFullscreen实现全屏
