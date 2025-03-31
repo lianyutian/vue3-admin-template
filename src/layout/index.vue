@@ -47,18 +47,18 @@ const route = useRoute()
   height: 100vh;
   color: white;
   .layout_slider {
-    width: $base-menu-width;
+    width: 260px;
     height: 100vh;
-    background: $base-menu-background;
+    background: #001529;
     transition: all 0.1s;
 
     &.fold {
-      width: $base-menu-min-width;
+      width: 50px;
     }
 
     .scrollbar {
       width: 100%;
-      height: calc(100vh - $base-menu-logo-height);
+      height: calc(100vh - 50px);
 
       .el-menu {
         border-right: 0;
@@ -68,32 +68,32 @@ const route = useRoute()
 
   .layout_tabbar {
     position: fixed;
-    width: calc(100% - $base-menu-width);
-    height: $base-tabbar-height;
+    width: calc(100% - 260px);
+    height: 50px;
     background: cyan;
     top: 0;
-    left: $base-menu-width;
+    left: 260px;
     transition: all 0.1s;
 
     &.fold {
-      width: calc(100vw - $base-menu-min-width);
-      left: $base-menu-min-width;
+      width: calc(100vw - 50px);
+      left: 50px;
     }
   }
   .layout_main {
     position: absolute;
-    width: calc(100% - $base-menu-width);
-    height: calc(100vh - $base-tabbar-height);
+    width: calc(100% - 260px);
+    height: calc(100vh - 50px);
     background-color: yellowgreen;
-    left: $base-menu-width;
-    top: $base-tabbar-height;
+    left: 260px;
+    top: 50px;
     padding: 20px;
     overflow: auto;
     transition: all 0.1s;
 
     &.fold {
-      width: calc(100vw - $base-menu-min-width);
-      left: $base-menu-min-width;
+      width: calc(100vw - 50px);
+      left: 50px;
     }
   }
 }

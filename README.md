@@ -1023,7 +1023,7 @@
    }
 
    ::-webkit-scrollbar-track {
-       background: $base-menu-background;
+       background: #001529;
    }
 
    ::-webkit-scrollbar-thumb {
@@ -1843,25 +1843,25 @@
        width: 100%;
        height: 100vh;
        .layout_slider {
-         width: $base-menu-width;
+         width: 260px;
          height: 100vh;
-         background: $base-menu-background;
+         background: #001529;
        }
        .layout_tabbar {
          position: fixed;
-         width: calc(100% - $base-menu-width);
-         height: $base-tabbar-height;
+         width: calc(100% - 260px);
+         height: 50px;
          background: cyan;
          top: 0;
-         left: $base-menu-width;
+         left: 260px;
        }
        .layout_main {
          position: absolute;
-         width: calc(100% - $base-menu-width);
-         height: calc(100vh - $base-tabbar-height);
+         width: calc(100% - 260px);
+         height: calc(100vh - 50px);
          background-color: yellowgreen;
-         left: $base-menu-width;
-         top: $base-tabbar-height;
+         left: 260px;
+         top: 50px;
          padding: 20px;
          overflow: auto;
        }
@@ -1876,12 +1876,12 @@
 
    // 项目提供scss全局变量
    //左侧的菜单的宽度
-   $base-menu-width:260px;
+   260px:260px;
    //左侧菜单的背景颜色
-   $base-menu-background:#001529;
-   $base-menu-min-width:50px;
+   #001529:#001529;
+   50px:50px;
    // 顶部导航的高度
-   $base-tabbar-height:50px;
+   50px:50px;
    ```
 
 3. 定义滚动条样式
@@ -1923,7 +1923,7 @@
    <style lang="scss" scoped>
      .logo {
        width: 100%;
-       height: $base-menu-logo-height;
+       height: 50px;
        color: white;
        display: flex;
        align-items: center;
@@ -1933,7 +1933,7 @@
          height: 40px;
        }
        p {
-         font-size: $base-logo-title-fontSize;
+         font-size: 20px;
          margin-left: 10px;
        }
      }
@@ -1946,9 +1946,9 @@
    // scr/styles/variable.scss
 
    //左侧菜单logo高度设置
-   $base-menu-logo-height:50px;
+   50px:50px;
    //左侧菜单logo右侧文字大小
-   $base-logo-title-fontSize:20px;
+   20px:20px;
    ```
 
 3. 引入logo组件
@@ -2041,13 +2041,13 @@
        // 设置字体颜色
        color: white;
        .layout_slider {
-         width: $base-menu-width;
+         width: 260px;
          height: 100vh;
-         background: $base-menu-background;
+         background: #001529;
          // 设置滚动条样式
          .scrollbar {
            width: 100%;
-           height: calc(100vh - $base-menu-logo-height);
+           height: calc(100vh - 50px);
            // 消除滚动border
            .el-menu {
              border-right: 0;
@@ -2056,19 +2056,19 @@
        }
        .layout_tabbar {
          position: fixed;
-         width: calc(100% - $base-menu-width);
-         height: $base-tabbar-height;
+         width: calc(100% - 260px);
+         height: 50px;
          background: cyan;
          top: 0;
-         left: $base-menu-width;
+         left: 260px;
        }
        .layout_main {
          position: absolute;
-         width: calc(100% - $base-menu-width);
-         height: calc(100vh - $base-tabbar-height);
+         width: calc(100% - 260px);
+         height: calc(100vh - 50px);
          background-color: yellowgreen;
-         left: $base-menu-width;
-         top: $base-tabbar-height;
+         left: 260px;
+         top: 50px;
          padding: 20px;
          overflow: auto;
        }
@@ -3131,7 +3131,7 @@
 
      ```css
      //左侧菜单最小宽度
-     $base-menu-min-width:50px;
+     50px:50px;
      ```
 
      绑定动态属性
@@ -3161,18 +3161,18 @@
          height: 100vh;
          color: white;
          .layout_slider {
-           width: $base-menu-width;
+           width: 260px;
            height: 100vh;
-           background: $base-menu-background;
+           background: #001529;
            transition: all 0.1s;
            // 添加左侧菜单最小宽度
            &.fold {
-             width: $base-menu-min-width;
+             width: 50px;
            }
 
            .scrollbar {
              width: 100%;
-             height: calc(100vh - $base-menu-logo-height);
+             height: calc(100vh - 50px);
 
              .el-menu {
                border-right: 0;
@@ -3239,18 +3239,18 @@
    <style lang="scss" scoped>
        .layout_tabbar {
          position: fixed;
-         width: calc(100% - $base-menu-width);
-         height: $base-tabbar-height;
+         width: calc(100% - 260px);
+         height: 50px;
          background: cyan;
          top: 0;
-         left: $base-menu-width;
+         left: 260px;
          transition: all 0.1s;
 
          &.fold {
            // 宽度 = 界面宽度 - 折叠后菜单栏所占宽度
-           width: calc(100vw - $base-menu-min-width);
+           width: calc(100vw - 50px);
            // 距离折叠后菜单栏宽度
-           left: $base-menu-min-width;
+           left: 50px;
          }
        }
      }
@@ -3281,18 +3281,18 @@
    <style lang="scss" scoped>
        .layout_main {
          position: absolute;
-         width: calc(100% - $base-menu-width);
-         height: calc(100vh - $base-tabbar-height);
+         width: calc(100% - 260px);
+         height: calc(100vh - 50px);
          background-color: yellowgreen;
-         left: $base-menu-width;
-         top: $base-tabbar-height;
+         left: 260px;
+         top: 50px;
          padding: 20px;
          overflow: auto;
          transition: all 0.1s;
    
          &.fold {
-           width: calc(100vw - $base-menu-min-width);
-           left: $base-menu-min-width;
+           width: calc(100vw - 50px);
+           left: 50px;
          }
        }
      }
